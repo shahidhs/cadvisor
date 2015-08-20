@@ -29,7 +29,7 @@ const (
 	netDir     = "/sys/class/net"
 	dmiDir     = "/sys/class/dmi"
 	ppcDevTree = "/proc/device-tree"
-	s390xDevTree = "/proc/sys/kernel/random/" // s390/s390x changes
+	s390xDevTree = "/etc" // s390/s390x changes
 )
 
 type CacheInfo struct {
@@ -244,7 +244,7 @@ func (self *realSysFs) GetSystemUUID() (string, error) {
 			id, err = ioutil.ReadFile(path.Join(ppcDevTree, "vm,uuid"))
 			if err != nil {
 				// s390/s390x changes
-				id, err = ioutil.ReadFile(path.Join(s390xDevTree, "uuid"))
+				id, err = ioutil.ReadFile(path.Join(s390xDevTree, "machine-id"))
 				if err != nil {
 					return "", err
 				}
